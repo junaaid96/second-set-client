@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
+import "./Navbar.css";
+import logo from "../../../../assets/logo.png";
 
 const Navbar = () => {
-
-
     const menuItems = (
         <>
             <li>
                 <Link to="/">Home</Link>
             </li>
             <li>
-                <Link to="/about">About</Link>
+                <Link to="/dashboard">Dashboard</Link>
             </li>
             <li>
                 <Link to="/blog">Blog</Link>
@@ -47,8 +47,14 @@ const Navbar = () => {
                         {menuItems}
                     </ul>
                 </div>
-                <Link to="/" className="btn btn-ghost normal-case text-xl">
-                    Doctors Portal
+                <Link
+                    to="/"
+                    className="btn btn-ghost normal-case text-xl navbar-title"
+                >
+                    <div className="flex items-center">
+                        <img src={logo} alt="" className="w-12"/>
+                        SecondSet
+                    </div>
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
