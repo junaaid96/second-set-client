@@ -7,9 +7,10 @@ const useJWT = (email) => {
             fetch(`http://localhost:5000/jwt?email=${email}`)
                 .then((res) => res.json())
                 .then((data) => {
-                    if (data.accessToken) {
-                        localStorage.setItem("accessToken", data.accessToken);
-                        setJWT(data.accessToken);
+                    console.log(data);
+                    if (data.token) {
+                        localStorage.setItem("accessToken", data.token);
+                        setJWT(data.token);
                     }
                 });
         }

@@ -1,7 +1,8 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Contexts/AuthProvider";
+import useJWT from "../../customHooks/useJWT";
 
 const Register = () => {
     const {
@@ -10,26 +11,47 @@ const Register = () => {
         formState: { errors },
     } = useForm();
     const { createUser, updateUser } = useContext(AuthContext);
-    // const onSubmit = (data) => console.log(data);
+    const [userEmail, setUserEmail] = useState("");
+    const [error, setError] = useState("");
+    const [jwt] = useJWT(userEmail);
     const navigate = useNavigate();
+
+    if (jwt) {
+        navigate("/");
+    }
 
     const handleRegister = (data) => {
         createUser(data.email, data.password)
-            .then((result) => {
-                const user = result.user;
+            .then((userCredential) => {
+                const user = userCredential.user;
                 console.log(user);
-                const userInfo = {
+                const userInformation = {
                     displayName: data.name,
                 };
-                updateUser(userInfo)
+                updateUser(userInformation)
                     .then(() => {
-                        navigate("/");
-                        console.log("User Name Updated Successfully");
+                        saveUser(data.name, data.email, data.role);
                     })
                     .catch((err) => console.log(err));
             })
-            .catch((error) => {
-                console.log(error);
+            .catch((err) => {
+                console.log(err);
+                setError(err.message);
+            });
+    };
+
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(user),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setUserEmail(email);
             });
     };
 
@@ -53,6 +75,11 @@ const Register = () => {
                                 placeholder="name"
                                 className="input input-bordered"
                             />
+                            {errors.name && (
+                                <p className="text-red-500">
+                                    {errors.name.message}
+                                </p>
+                            )}
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -62,10 +89,15 @@ const Register = () => {
                                 {...register("email", {
                                     required: "Email is Required",
                                 })}
-                                type="text"
+                                type="email"
                                 placeholder="email"
                                 className="input input-bordered"
                             />
+                            {errors.email && (
+                                <p className="text-red-500">
+                                    {errors.email.message}
+                                </p>
+                            )}
                         </div>
                         <div className="form-control">
                             <label className="label">
@@ -79,6 +111,11 @@ const Register = () => {
                                 placeholder="password"
                                 className="input input-bordered"
                             />
+                            {errors.password && (
+                                <p className="text-red-500">
+                                    {errors.password.message}
+                                </p>
+                            )}
                         </div>
                         <div className="flex items-center justify-between">
                             <h2>Select Role</h2>
@@ -102,7 +139,7 @@ const Register = () => {
                                             {...register("role")}
                                             type="radio"
                                             className="radio checked"
-                                            value="buyer"
+                                            value="user"
                                         />
                                         <span className="label-text ml-3">
                                             Buyer
@@ -115,14 +152,15 @@ const Register = () => {
                             <button type="submit" className="btn btn-primary">
                                 Register
                             </button>
+                            {error && <p className="text-red-600">{error}</p>}
                         </div>
-                        <p>
-                            Already have an Account? Please,{" "}
-                            <Link className="font-bold" to="/login">
-                                Login
-                            </Link>
-                        </p>
                     </form>
+                    <p className="mb-6 ml-6">
+                        Already have an Account? Please,{" "}
+                        <Link className="font-bold" to="/login">
+                            Login
+                        </Link>
+                    </p>
                 </div>
             </div>
         </div>

@@ -1,8 +1,13 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/AuthProvider";
 import useJWT from "../../customHooks/useJWT";
+import { FcGoogle } from "react-icons/fc";
+// import saveUser from "../Register/Register";
+
+const googleProvider = new GoogleAuthProvider();
 
 const Login = () => {
     const {
@@ -10,7 +15,7 @@ const Login = () => {
         formState: { errors },
         handleSubmit,
     } = useForm();
-    const { existingUser } = useContext(AuthContext);
+    const { existingUser, providerLogin } = useContext(AuthContext);
     const location = useLocation();
     const navigate = useNavigate();
     const [userEmail, setUserEmail] = useState("");
@@ -22,6 +27,33 @@ const Login = () => {
     if (jwt) {
         navigate(from, { replace: true });
     }
+
+    const handleGoogleSignIn = () => {
+        providerLogin(googleProvider)
+            .then((userCredential) => {
+                const user = userCredential.user;
+                saveUser(user.displayName, user.email, "buyer");
+            })
+            .catch((err) => {
+                console.error("Error: ", err);
+                setError(err.message);
+            });
+    };
+
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch("http://localhost:5000/users", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(user),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setUserEmail(email);
+            });
+    };
 
     const handleLogin = (data) => {
         console.log(data);
@@ -54,7 +86,7 @@ const Login = () => {
                                 {...register("email", {
                                     required: "Email is required",
                                 })}
-                                type="text"
+                                type="email"
                                 placeholder="email"
                                 className="input input-bordered"
                             />
@@ -76,6 +108,11 @@ const Login = () => {
                                 placeholder="password"
                                 className="input input-bordered"
                             />
+                            {errors.password && (
+                                <p className="text-red-500">
+                                    {errors.password.message}
+                                </p>
+                            )}
                             <label className="label">
                                 <Link
                                     href="#"
@@ -91,13 +128,21 @@ const Login = () => {
                         <div>
                             {error && <p className="text-red-600">{error}</p>}
                         </div>
-                        <p>
-                            New Here? Please,{" "}
-                            <Link className="font-bold" to="/register">
-                                Register
-                            </Link>
-                        </p>
                     </form>
+                    <p className="mb-6 ml-6">
+                        New Here? Please,{" "}
+                        <Link className="font-bold" to="/register">
+                            Register
+                        </Link>
+                    </p>
+                    <button
+                        type="submit"
+                        className="btn btn-primary w-1/2 m-auto mb-6"
+                        onClick={handleGoogleSignIn}
+                    >
+                        <FcGoogle className="mr-2" />
+                        Login with Google
+                    </button>
                 </div>
             </div>
         </div>

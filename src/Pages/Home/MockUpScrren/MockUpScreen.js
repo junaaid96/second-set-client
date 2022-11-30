@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../Contexts/AuthProvider";
 import logo from "../../../assets/logo.png";
 import "./MockUpScreen.css";
+import { Link } from "react-router-dom";
 
 const MockUpScreen = () => {
     const { user } = useContext(AuthContext);
@@ -24,7 +25,7 @@ const MockUpScreen = () => {
                                 <h1>{user.email}</h1>
                             </div>
                         ) : (
-                            <button className="btn btn-primary">Login</button>
+                            <Link to="/login"><button className="btn btn-primary">Login</button></Link>
                         )}
                     </div>
                 </div>

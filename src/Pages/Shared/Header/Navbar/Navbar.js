@@ -1,22 +1,41 @@
 import { Link } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../../../assets/logo.png";
+import { useContext } from "react";
+import { AuthContext } from "../../../../Contexts/AuthProvider";
 
 const Navbar = () => {
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {})
+            .catch((err) => console.log(err));
+    };
     const menuItems = (
         <>
             <li>
                 <Link to="/">Home</Link>
             </li>
             <li>
-                <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
                 <Link to="/blog">Blog</Link>
             </li>
-            <li>
-                <Link to="/login">Login</Link>
-            </li>
+            <>
+                {user?.email ? (
+                    <>
+                        <li>
+                            <Link to="/dashboard">Dashboard</Link>
+                        </li>
+                        <li>
+                            <button onClick={handleLogOut}>Sign out</button>
+                        </li>
+                    </>
+                ) : (
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                )}
+            </>
         </>
     );
 
@@ -52,7 +71,7 @@ const Navbar = () => {
                     className="btn btn-ghost normal-case text-xl navbar-title"
                 >
                     <div className="flex items-center">
-                        <img src={logo} alt="" className="w-12"/>
+                        <img src={logo} alt="" className="w-12" />
                         SecondSet
                     </div>
                 </Link>
