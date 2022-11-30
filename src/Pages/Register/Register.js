@@ -140,9 +140,10 @@ const Register = () => {
                                             type="radio"
                                             className="radio checked"
                                             value="user"
+                                            checked
                                         />
                                         <span className="label-text ml-3">
-                                            Buyer
+                                            User
                                         </span>
                                     </label>
                                 </div>
