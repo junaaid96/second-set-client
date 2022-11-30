@@ -18,7 +18,7 @@ const Categories = () => {
     return (
         <div className="mt-10">
             <h1 className="text-3xl mb-6 text-center">Phone Categories</h1>
-            <div className="flex items-center justify-center gap-10">
+            <div className="flex flex-wrap items-center justify-center gap-10">
             {categories.map((category) => (
                 <Category key={category._id} category={category}></Category>
             ))}

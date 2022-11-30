@@ -1,3 +1,29 @@
+# Live Site
+
+https://second-set-c3ef3.web.app/
+
+# Features
+
+-   Regular stock updates.
+-   One Free service in every phones.
+-   Dedicated supports on time.
+-   Adopted machine learning based algorithm to solve issues quickly.
+-   Sold required parts separately.
+
+# Functionalities
+
+-   Minimalistic UI/UX.
+-   Made responsive for Mobile, Tablet and Desktop.
+-   Seller can add their product.
+-   Advertisement facility.
+-   Safe authentication system using JWT.
+-   Buyer can report items.
+
+# admin credential
+adminEmail: junaid@secondset.com
+
+adminPassword: Kh3lah0b3!
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

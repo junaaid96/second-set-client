@@ -5,7 +5,7 @@ const Category = ({ category }) => {
     const { _id, img, name, text } = category;
 
     return (
-        <div className="card card-compact bg-base-100 shadow-xl">
+        <div className="card w-96 card-compact bg-base-100 shadow-xl">
             <figure>
                 <img className="" src={img} alt="category" />
             </figure>
