@@ -1,17 +1,44 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { AuthContext } from "../../Contexts/AuthProvider";
 
 const Register = () => {
-    const { register, handleSubmit } = useForm();
-    const onSubmit = (data) => console.log(data);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+    const { createUser, updateUser } = useContext(AuthContext);
+    // const onSubmit = (data) => console.log(data);
+    const navigate = useNavigate();
+
+    const handleRegister = (data) => {
+        createUser(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                const userInfo = {
+                    displayName: data.name,
+                };
+                updateUser(userInfo)
+                    .then(() => {
+                        navigate("/");
+                        console.log("User Name Updated Successfully");
+                    })
+                    .catch((err) => console.log(err));
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
         <div className="hero min-h-screen">
             <div className="hero-content w-full">
                 <div className="card w-full max-w-lg shadow-2xl bg-base-100">
                     <form
-                        onSubmit={handleSubmit(onSubmit)}
+                        onSubmit={handleSubmit(handleRegister)}
                         className="card-body"
                     >
                         <div className="form-control">
