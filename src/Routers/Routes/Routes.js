@@ -5,13 +5,19 @@ import AllBuyers from "../../Pages/Admin/AllBuyers/AllBuyers";
 import AllSellers from "../../Pages/Admin/AllSellers/AllSellers";
 import ReportedItems from "../../Pages/Admin/ReportedItems/ReportedItems";
 import Blog from "../../Pages/Blog/Blog";
+import MyOrders from "../../Pages/Buyer/MyOrders/MyOrders";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import NotFound from "../../Pages/NotFound/NotFound";
 import Register from "../../Pages/Register/Register";
+import AddProduct from "../../Pages/Seller/AddProduct/AddProduct";
+import MyBuyers from "../../Pages/Seller/MyBuyers/MyBuyers";
+import MyProducts from "../../Pages/Seller/MyProducts/MyProducts";
 import AdminRoute from "../AdminRoutes/AdminRoutes";
+import BuyerRoutes from "../BuyerRoutes/BuyerRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
+import SellerRoutes from "../SellerRoutes/SellerRoutes";
 
 const router = createBrowserRouter([
     {
@@ -44,15 +50,19 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: (
             <PrivateRoutes>
-                <DashboardLayout></DashboardLayout>
+                <DashboardLayout />
             </PrivateRoutes>
         ),
         children: [
             {
                 path: "/dashboard",
+                element: <Dashboard />,
+            },
+            {
+                path: "/dashboard/allSellers",
                 element: (
                     <AdminRoute>
-                        <AllSellers></AllSellers>
+                        <AllSellers />
                     </AdminRoute>
                 ),
             },
@@ -60,7 +70,7 @@ const router = createBrowserRouter([
                 path: "/dashboard/allBuyers",
                 element: (
                     <AdminRoute>
-                        <AllBuyers></AllBuyers>
+                        <AllBuyers />
                     </AdminRoute>
                 ),
             },
@@ -68,8 +78,40 @@ const router = createBrowserRouter([
                 path: "/dashboard/reportedItems",
                 element: (
                     <AdminRoute>
-                        <ReportedItems></ReportedItems>
+                        <ReportedItems />
                     </AdminRoute>
+                ),
+            },
+            {
+                path: "/dashboard/myOrders",
+                element: (
+                    <BuyerRoutes>
+                        <MyOrders />
+                    </BuyerRoutes>
+                ),
+            },
+            {
+                path: "/dashboard/myProducts",
+                element: (
+                    <SellerRoutes>
+                        <MyProducts />
+                    </SellerRoutes>
+                ),
+            },
+            {
+                path: "/dashboard/addProduct",
+                element: (
+                    <SellerRoutes>
+                        <AddProduct />
+                    </SellerRoutes>
+                ),
+            },
+            {
+                path: "/dashboard/myBuyers",
+                element: (
+                    <SellerRoutes>
+                        <MyBuyers />
+                    </SellerRoutes>
                 ),
             },
         ],

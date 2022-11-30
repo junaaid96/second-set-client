@@ -24,16 +24,22 @@ const DashboardLayout = () => {
                 <div className="drawer-content">
                     <Outlet></Outlet>
                 </div>
-                <div className="drawer-side">
+                <div className="drawer-side bg-base-200 rounded">
                     <label
                         htmlFor="dashboard-drawer"
                         className="drawer-overlay"
                     ></label>
                     <ul className="menu p-4 w-80 text-base-content">
+                        <li>
+                            <Link to="/dashboard">Dashboard</Link>
+                        </li>
+
                         {isAdmin && (
                             <>
                                 <li>
-                                    <Link to="/dashboard">All Sellers</Link>
+                                    <Link to="/dashboard/allSellers">
+                                        All Sellers
+                                    </Link>
                                 </li>
                                 <li>
                                     <Link to="/dashboard/allBuyers">
@@ -50,17 +56,21 @@ const DashboardLayout = () => {
                         {isBuyer && (
                             <>
                                 <li>
-                                    <Link to="/dashboard">My Orders</Link>
+                                    <Link to="/dashboard/myOrders">
+                                        My Orders
+                                    </Link>
                                 </li>
                             </>
                         )}
                         {isSeller && (
                             <>
                                 <li>
-                                    <Link to="/dashboard">My Products</Link>
+                                    <Link to="/dashboard/myProducts">
+                                        My Products
+                                    </Link>
                                 </li>
                                 <li>
-                                    <Link to="/dashboard/addAProduct">
+                                    <Link to="/dashboard/addProduct">
                                         Add A Product
                                     </Link>
                                 </li>

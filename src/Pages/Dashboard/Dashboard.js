@@ -1,11 +1,11 @@
 import React from 'react';
-import DashboardLayout from '../../Layout/DashboardLayout';
 
 const Dashboard = () => {
     return (
-        <>
-            <DashboardLayout />
-        </>
+        <div className='text-center'>
+            <h1>Welcome To Dashboard</h1>
+            <p>Your role is ...</p>
+        </div>
     );
 };
 
