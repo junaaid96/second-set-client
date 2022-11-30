@@ -1,20 +1,26 @@
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import Category from "./Category";
 
 const Categories = () => {
+    const url = "http://localhost:5000/categories";
+
+    const { data: categories = [] } = useQuery({
+        queryKey: ["categories"],
+        queryFn: async () => {
+            const res = await fetch(url);
+            const data = await res.json();
+            return data;
+        },
+    });
+
     return (
         <div className="mt-10">
             <h1 className="text-3xl mb-6 text-center">Phone Categories</h1>
-            <div className="card card-compact w-96 bg-base-100 shadow-xl">
-                <figure>
-                    <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
-                </figure>
-                <div className="card-body">
-                    <h2 className="card-title">Shoes!</h2>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                </div>
+            <div className="flex items-center justify-center gap-10">
+            {categories.map((category) => (
+                <Category key={category._id} category={category}></Category>
+            ))}
             </div>
         </div>
     );

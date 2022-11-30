@@ -1,32 +1,35 @@
 import React from "react";
-import banner1 from "../../../assets/images/banner1.jpg";
+import { Link } from "react-router-dom";
 import banner2 from "../../../assets/images/banner2.jpg";
-import banner3 from "../../../assets/images/banner3.jpg";
 
 const Banner = () => {
     return (
         <div className="mt-6">
-            <div className="carousel w-full h-96 rounded">
-                <div id="banner1" className="carousel-item w-full">
-                    <img src={banner1} className="w-full" alt="banner1" />
+            <div
+                className="hero h-96"
+                style={{
+                    backgroundImage: `url(${banner2})`,
+                }}
+            >
+                <div className="hero-overlay bg-opacity-60"></div>
+                <div className="hero-content text-center text-neutral-content">
+                    <div className="max-w-md">
+                        <h1 className="mb-5 text-5xl font-bold">SecondSet</h1>
+                        <p className="mb-5">
+                            SecondSet is the right market for used and brand new
+                            mobile phones where you will find out the best
+                            quality second-hand mobile phones along with the
+                            latest brand new phones that you are looking for.
+                            Sellers of mobile phones can also increase their
+                            sales on SecondSet.
+                        </p>
+                        <Link to="/login">
+                            <button className="btn btn-primary">
+                                Get Started
+                            </button>
+                        </Link>
+                    </div>
                 </div>
-                <div id="banner2" className="carousel-item w-full">
-                    <img src={banner2} className="w-full" alt="banner2" />
-                </div>
-                <div id="banner3" className="carousel-item w-full">
-                    <img src={banner3} className="w-full" alt="banner3" />
-                </div>
-            </div>
-            <div className="flex justify-center w-full py-2 gap-2">
-                <a href="#banner1" className="btn btn-xs">
-                    1
-                </a>
-                <a href="#banner2" className="btn btn-xs">
-                    2
-                </a>
-                <a href="#banner3" className="btn btn-xs">
-                    3
-                </a>
             </div>
         </div>
     );
