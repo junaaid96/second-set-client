@@ -10,6 +10,7 @@ import Dashboard from "../../Pages/Dashboard/Dashboard";
 import Home from "../../Pages/Home/Home";
 import Login from "../../Pages/Login/Login";
 import NotFound from "../../Pages/NotFound/NotFound";
+import Products from "../../Pages/Products/Products";
 import Register from "../../Pages/Register/Register";
 import AddProduct from "../../Pages/Seller/AddProduct/AddProduct";
 import MyBuyers from "../../Pages/Seller/MyBuyers/MyBuyers";
@@ -43,6 +44,16 @@ const router = createBrowserRouter([
             {
                 path: "/register",
                 element: <Register />,
+            },
+            {
+                path: "/category/:category",
+                element: (
+                    <PrivateRoutes>
+                        <Products />
+                    </PrivateRoutes>
+                ),
+                loader: ({ params }) =>
+                    fetch(`http://localhost:5000/category/${params.category}`),
             },
         ],
     },
