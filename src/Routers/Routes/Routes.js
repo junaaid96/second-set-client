@@ -53,7 +53,9 @@ const router = createBrowserRouter([
                     </PrivateRoutes>
                 ),
                 loader: ({ params }) =>
-                    fetch(`http://localhost:5000/category/${params.category}`),
+                    fetch(
+                        `https://second-set-server.vercel.app/category/${params.category}`
+                    ),
             },
         ],
     },

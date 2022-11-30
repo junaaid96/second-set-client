@@ -4,7 +4,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const Dashboard = () => {
     const { user } = useContext(AuthContext);
-    const url = `http://localhost:5000/users/${user.email}`;
+    const url = `https://second-set-server.vercel.app/users/${user.email}`;
 
     const { data: users = [] } = useQuery({
         queryKey: ["users"],
