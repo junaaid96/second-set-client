@@ -1,17 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 const Register = () => {
+    const { register, handleSubmit } = useForm();
+    const onSubmit = (data) => console.log(data);
+
     return (
         <div className="hero min-h-screen">
             <div className="hero-content w-full">
                 <div className="card w-full max-w-lg shadow-2xl bg-base-100">
-                    <div className="card-body">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="card-body"
+                    >
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Name</span>
                             </label>
                             <input
+                                {...register("name", {
+                                    required: "Name is Required",
+                                })}
                                 type="text"
                                 placeholder="name"
                                 className="input input-bordered"
@@ -22,6 +32,9 @@ const Register = () => {
                                 <span className="label-text">Email</span>
                             </label>
                             <input
+                                {...register("email", {
+                                    required: "Email is Required",
+                                })}
                                 type="text"
                                 placeholder="email"
                                 className="input input-bordered"
@@ -32,7 +45,10 @@ const Register = () => {
                                 <span className="label-text">Password</span>
                             </label>
                             <input
-                                type="text"
+                                {...register("password", {
+                                    required: "Password is Required",
+                                })}
+                                type="password"
                                 placeholder="password"
                                 className="input input-bordered"
                             />
@@ -43,10 +59,10 @@ const Register = () => {
                                 <div className="form-control">
                                     <label className="label cursor-pointer">
                                         <input
+                                            {...register("role")}
                                             type="radio"
-                                            name="role"
                                             className="radio checked:bg-blue-500"
-                                            checked
+                                            value="seller"
                                         />
                                         <span className="label-text ml-3">
                                             Seller
@@ -56,10 +72,10 @@ const Register = () => {
                                 <div className="form-control">
                                     <label className="label cursor-pointer">
                                         <input
+                                            {...register("role")}
                                             type="radio"
-                                            name="role"
                                             className="radio checked"
-                                            checked
+                                            value="buyer"
                                         />
                                         <span className="label-text ml-3">
                                             Buyer
@@ -69,15 +85,17 @@ const Register = () => {
                             </div>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">
+                            <button type="submit" className="btn btn-primary">
                                 Register
                             </button>
                         </div>
                         <p>
                             Already have an Account? Please,{" "}
-                            <Link className="font-bold" to="/login">Login</Link>
+                            <Link className="font-bold" to="/login">
+                                Login
+                            </Link>
                         </p>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
