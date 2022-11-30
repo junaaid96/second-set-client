@@ -9,6 +9,7 @@ const Banner = () => {
                 className="hero h-96"
                 style={{
                     backgroundImage: `url(${banner2})`,
+                    borderRadius: "10px",
                 }}
             >
                 <div className="hero-overlay bg-opacity-60"></div>
