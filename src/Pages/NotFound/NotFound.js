@@ -1,9 +1,10 @@
-import React from 'react';
+import React from "react";
+import img from "../../assets/images/not_found.png";
 
 const NotFound = () => {
     return (
         <div>
-            Psge not found
+            <img src={img} alt="not-found" className="max-h-screen m-auto p-12"/>
         </div>
     );
 };
