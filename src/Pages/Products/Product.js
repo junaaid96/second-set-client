@@ -1,4 +1,5 @@
 import React from "react";
+import { TiTickOutline } from "react-icons/ti";
 
 const Product = ({ product }) => {
     const {
@@ -26,11 +27,11 @@ const Product = ({ product }) => {
                         : `${year_of_use} year`}
                 </p>
                 <div className="flex items-center justify-between mt-12">
-                    <div >
+                    <div>
                         <p className="indicator">
-                        <span className="indicator-item badge badge-primary">
-                            verified
-                        </span>
+                            <span className="indicator-item badge bg-blue-600">
+                                <TiTickOutline />
+                            </span>
                             Seller: <strong>{seller_name}</strong>
                         </p>
                         <p>Location: {location}</p>
