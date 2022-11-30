@@ -2,7 +2,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../Contexts/AuthProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 import useJWT from "../../customHooks/useJWT";
 import { FcGoogle } from "react-icons/fc";
 // import saveUser from "../Register/Register";

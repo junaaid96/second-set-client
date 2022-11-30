@@ -3,6 +3,7 @@ import React from "react";
 import Category from "./Category";
 
 const Categories = () => {
+    
     const url = "http://localhost:5000/categories";
 
     const { data: categories = [] } = useQuery({

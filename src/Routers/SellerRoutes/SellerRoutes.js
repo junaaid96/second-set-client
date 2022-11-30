@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../../Contexts/AuthProvider';
-import useSeller from '../../customHooks/useSeller';
+import React, { useContext } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
+import useSeller from "../../customHooks/useSeller";
 
 const SellerRoutes = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
@@ -9,7 +9,7 @@ const SellerRoutes = ({ children }) => {
     const location = useLocation();
 
     if (loading || isSellerLoading) {
-        return <progress className="progress w-56"></progress>
+        return <progress className="progress w-56"></progress>;
     }
 
     if (user && isSeller) {

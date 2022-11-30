@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { AuthContext } from "../../Contexts/AuthProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 import useJWT from "../../customHooks/useJWT";
 
 const Register = () => {

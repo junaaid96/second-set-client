@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { AuthContext } from "../Contexts/AuthProvider";
+import { AuthContext } from "../contexts/AuthProvider";
 import useAdmin from "../customHooks/useAdmin";
 import useBuyer from "../customHooks/useBuyer";
 import useSeller from "../customHooks/useSeller";
