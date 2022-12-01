@@ -1,5 +1,6 @@
 import React from "react";
 import { TiTickOutline } from "react-icons/ti";
+import BookNowModal from "./BookNowModal";
 
 const Product = ({ product }) => {
     const {
@@ -10,6 +11,7 @@ const Product = ({ product }) => {
         original_price,
         year_of_use,
         seller_name,
+        isBooked,
     } = product;
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -36,8 +38,21 @@ const Product = ({ product }) => {
                         </p>
                         <p>Location: {location}</p>
                     </div>
+                    <BookNowModal product={product} />
+
                     <div className="card-actions justify-end">
-                        <button className="btn btn-primary">Book Now</button>
+                        {isBooked ? (
+                            <button className="btn btn-sm" disabled>
+                                Booked
+                            </button>
+                        ) : (
+                            <label
+                                htmlFor="book-now-modal"
+                                className="btn btn-primary"
+                            >
+                                Book Now
+                            </label>
+                        )}
                     </div>
                 </div>
             </div>
