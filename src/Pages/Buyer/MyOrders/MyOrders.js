@@ -1,12 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import Order from "./Order";
+import { AuthContext } from "../../../contexts/AuthProvider";
 
 const MyOrders = () => {
+    const { user } = useContext(AuthContext);
     const { data: bookings = [], isLoading } = useQuery({
         queryKey: ["bookings"],
         queryFn: async () => {
-            const res = await fetch("http://localhost:5000/bookings");
+            const res = await fetch(
+                `https://second-set-server.vercel.app/bookings/${user.email}`
+            );
             const data = await res.json();
             return data;
         },

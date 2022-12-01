@@ -3,7 +3,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const BookNowModal = ({ product }) => {
-    const { _id, name: item_name, resale_price } = product;
+    const { _id, name: item_name, resale_price, isBooked } = product;
     const { user } = useContext(AuthContext);
 
     const handleSubmit = (event) => {
@@ -11,6 +11,8 @@ const BookNowModal = ({ product }) => {
         const form = event.target;
         const name = form.name.value;
         const email = form.email.value;
+        const item_name = form.item_name.value;
+        const price = form.price.value;
         const phone = form.phone.value;
         const location = form.location.value;
 
@@ -18,12 +20,12 @@ const BookNowModal = ({ product }) => {
             buyer_name: name,
             email,
             item_name,
-            price: resale_price,
+            price,
             phone,
             meeting_location: location,
         };
 
-        fetch("http://localhost:5000/bookings", {
+        fetch("https://second-set-server.vercel.app/bookings", {
             method: "POST",
             headers: {
                 "content-Type": "application/json",
@@ -40,33 +42,37 @@ const BookNowModal = ({ product }) => {
                 }
             });
 
-            fetch(`http://localhost:5000/product/${_id}`, {
-                method: "PATCH",
-                headers: {
-                    "content-Type": "application/json",
-
-                },
-                body: JSON.stringify({isSold: true})
-
-            })
+        fetch(`https://second-set-server.vercel.app/product/${_id}`, {
+            method: "PATCH",
+            headers: {
+                "content-Type": "application/json",
+            },
+            body: JSON.stringify({ isBooked: true }),
+        });
     };
 
     return (
         <>
+            <label
+                htmlFor={`book-now-modal-${_id}`}
+                className={`btn btn-primary ${isBooked && "btn-disabled"}`}
+            >
+                Book Now
+            </label>
             <input
                 type="checkbox"
-                id="book-now-modal"
+                id={`book-now-modal-${_id}`}
                 className="modal-toggle"
             />
             <div className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
                     <label
-                        htmlFor="book-now-modal"
+                        htmlFor={`book-now-modal-${_id}`}
                         className="btn btn-sm btn-circle absolute right-2 top-2"
                     >
                         ✕
                     </label>
-                    <form onSubmit={handleSubmit} className="card-body">
+                    <form onSubmit={handleSubmit}>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Name</span>
@@ -95,7 +101,7 @@ const BookNowModal = ({ product }) => {
                         </div>
                         <div className="form-control">
                             <label className="label">
-                                <span className="label-text">Item</span>
+                                <span className="label-text">Item Name</span>
                             </label>
                             <input
                                 name="item_name"
@@ -148,7 +154,7 @@ const BookNowModal = ({ product }) => {
                         <div className="modal-action">
                             <input
                                 type="submit"
-                                htmlFor="book-now-modal"
+                                htmlFor={`book-now-modal-${_id}`}
                                 className="btn"
                                 value="Submit"
                             />

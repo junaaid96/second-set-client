@@ -11,8 +11,8 @@ const Product = ({ product }) => {
         original_price,
         year_of_use,
         seller_name,
-        isBooked,
     } = product;
+
     return (
         <div className="card card-compact w-96 bg-base-100 shadow-xl">
             <figure className="h-96">
@@ -38,22 +38,7 @@ const Product = ({ product }) => {
                         </p>
                         <p>Location: {location}</p>
                     </div>
-                    <BookNowModal product={product} />
-
-                    <div className="card-actions justify-end">
-                        {isBooked ? (
-                            <button className="btn btn-sm" disabled>
-                                Booked
-                            </button>
-                        ) : (
-                            <label
-                                htmlFor="book-now-modal"
-                                className="btn btn-primary"
-                            >
-                                Book Now
-                            </label>
-                        )}
-                    </div>
+                    <BookNowModal key={product._id} product={product} />
                 </div>
             </div>
         </div>
