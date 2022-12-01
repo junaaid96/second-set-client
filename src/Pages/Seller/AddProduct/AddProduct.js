@@ -16,7 +16,7 @@ const AddProduct = () => {
 
     const handleAddProduct = (data) => {
         console.log(data);
-        const image = data.image[0];
+        const image = data.picture[0];
         const formData = new FormData();
         formData.append("image", image);
         const url = `https://api.imgbb.com/1/upload?key=${pictureHostingKey}`;
@@ -36,7 +36,7 @@ const AddProduct = () => {
                         resale_price: data.resale_price,
                         original_price: data.original_price,
                         year_of_use: data.year_of_use,
-                        seller_name: user.name,
+                        seller_name: user.displayName,
                         isBooked: false,
                         seller_email: user.email,
                     };
@@ -56,7 +56,7 @@ const AddProduct = () => {
                         .then((result) => {
                             console.log(result);
                             toast.success(`${data.name} is added successfully`);
-                            navigate("/myProducts");
+                            navigate("/dashboard/myProducts");
                         });
                 }
             });
