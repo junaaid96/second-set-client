@@ -1,7 +1,29 @@
-import React from 'react';
+import React from "react";
 
-const MyProduct = ({myProduct, index}) => {
-    const {seller_name, seller_email, name: productName, resale_price, isBooked: status} = myProduct;
+const MyProduct = ({ myProduct, index, refetch }) => {
+    const {
+        _id,
+        seller_name,
+        seller_email,
+        name: productName,
+        resale_price,
+        isBooked: status,
+    } = myProduct;
+
+    const handleDelete = () => {
+        fetch(`https://second-set-server.vercel.app/product/${_id}`, {
+            method: "DELETE",
+            // headers: {
+            //     authorization: `bearer ${localStorage.getItem('accessToken')}`
+            // }
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.deletedCount > 0) {
+                    refetch();
+                }
+            });
+    };
 
     return (
         <tbody>
@@ -12,8 +34,19 @@ const MyProduct = ({myProduct, index}) => {
                 <td>{productName}</td>
                 <td>{resale_price}</td>
                 <td>{status ? "Booked" : "Available"}</td>
-                <td><button className="btn btn-sm btn-primary">Advertise</button></td>
-                <td><button className="btn btn-sm btn-error">X</button></td>
+                <td>
+                    <button className="btn btn-sm btn-primary">
+                        Advertise
+                    </button>
+                </td>
+                <td>
+                    <button
+                        onClick={() => handleDelete()}
+                        className="btn btn-error btn-sm"
+                    >
+                        X
+                    </button>
+                </td>
             </tr>
         </tbody>
     );

@@ -6,7 +6,7 @@ const BookNowModal = ({ product }) => {
     const { _id, name: item_name, resale_price, isBooked } = product;
     const { user } = useContext(AuthContext);
 
-    const handleSubmit = (event) => {
+    const handleBook = (event) => {
         event.preventDefault();
         const form = event.target;
         const name = form.name.value;
@@ -72,7 +72,7 @@ const BookNowModal = ({ product }) => {
                     >
                         ✕
                     </label>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={handleBook}>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Name</span>

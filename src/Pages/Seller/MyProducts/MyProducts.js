@@ -5,7 +5,7 @@ import MyProduct from "./MyProduct";
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
-    const { data: products = [], isLoading } = useQuery({
+    const { data: products = [], isLoading, refetch } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
             const res = await fetch(
@@ -40,6 +40,7 @@ const MyProducts = () => {
                         key={myProduct._id}
                         myProduct={myProduct}
                         index={index}
+                        refetch={refetch}
                     ></MyProduct>
                 ))}
             </table>
