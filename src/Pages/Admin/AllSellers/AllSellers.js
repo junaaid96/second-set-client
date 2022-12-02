@@ -11,14 +11,14 @@ const AllSellers = () => {
         queryKey: ["users"],
         queryFn: async () => {
             const res = await fetch(
-                "https://second-set-server.vercel.app/users"
+                `https://second-set-server.vercel.app/users`
             );
             const data = await res.json();
             return data;
         },
     });
 
-    if (isLoading) {
+    if (isLoading || users.length === 0) {
         return <progress className="progress w-56"></progress>;
     }
 
@@ -33,7 +33,7 @@ const AllSellers = () => {
                         <th>Action</th>
                     </tr>
                 </thead>
-                {users.map(
+                {users?.map(
                     (user, i) =>
                         user.role === "seller" && (
                             <Seller

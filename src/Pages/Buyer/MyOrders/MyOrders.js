@@ -6,7 +6,7 @@ import { AuthContext } from "../../../contexts/AuthProvider";
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
     const { data: bookings = [], isLoading } = useQuery({
-        queryKey: ["bookings"],
+        queryKey: ["bookings", user?.email],
         queryFn: async () => {
             const res = await fetch(
                 `https://second-set-server.vercel.app/bookings/${user.email}`

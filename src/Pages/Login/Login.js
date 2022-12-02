@@ -33,6 +33,7 @@ const Login = () => {
             .then((userCredential) => {
                 const user = userCredential.user;
                 saveUser(user.displayName, user.email, "buyer");
+                setUserEmail(user.email);
             })
             .catch((err) => {
                 console.error("Error: ", err);
@@ -42,8 +43,8 @@ const Login = () => {
 
     const saveUser = (name, email, role) => {
         const user = { name, email, role };
-        fetch("https://second-set-server.vercel.app/users", {
-            method: "POST",
+        fetch(`https://second-set-server.vercel.app/users/${user.email}`, {
+            method: "PATCH",
             headers: {
                 "content-type": "application/json",
             },

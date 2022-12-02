@@ -6,7 +6,7 @@ import MyProduct from "./MyProduct";
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
     const { data: products = [], isLoading, refetch } = useQuery({
-        queryKey: ["products"],
+        queryKey: ["products", user?.email],
         queryFn: async () => {
             const res = await fetch(
                 `https://second-set-server.vercel.app/products/${user.email}`
