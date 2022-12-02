@@ -1,4 +1,5 @@
 import React from "react";
+import toast from "react-hot-toast";
 
 const MyProduct = ({ myProduct, index, refetch }) => {
     const {
@@ -8,6 +9,7 @@ const MyProduct = ({ myProduct, index, refetch }) => {
         seller_name,
         isBooked: status,
         seller_email,
+        isAdvertised,
     } = myProduct;
 
     const handleDelete = () => {
@@ -26,13 +28,36 @@ const MyProduct = ({ myProduct, index, refetch }) => {
     };
 
     const handleAdvertisement = () => {
-        fetch(`https://second-set-server.vercel.app/products/${_id}`, {
+        fetch(`https://second-set-server.vercel.app/advertisement/${_id}`, {
             method: "PATCH",
             headers: {
                 "content-type": "application/json",
             },
-            body: JSON.stringify({}),
-        });
+            body: JSON.stringify({ isAdvertised: true }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.modifiedCount > 0) {
+                    toast.success("Product is advertised");
+                    refetch();
+                }
+            });
+    };
+    const handleRemoveAdvertisement = () => {
+        fetch(`https://second-set-server.vercel.app/advertisement/${_id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ isAdvertised: false }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data.modifiedCount > 0) {
+                    toast.success("Product is removed from advertisement");
+                    refetch();
+                }
+            });
     };
 
     return (
@@ -45,12 +70,21 @@ const MyProduct = ({ myProduct, index, refetch }) => {
                 <td>{resale_price}</td>
                 <td>{status ? "Booked" : "Available"}</td>
                 <td>
-                    <button
-                        onClick={handleAdvertisement}
-                        className="btn btn-sm btn-primary"
-                    >
-                        Advertise
-                    </button>
+                    {isAdvertised ? (
+                        <button
+                            className="btn btn-error"
+                            onClick={handleRemoveAdvertisement}
+                        >
+                            Undo
+                        </button>
+                    ) : (
+                        <button
+                            onClick={handleAdvertisement}
+                            className="btn btn-primary"
+                        >
+                            Advertise
+                        </button>
+                    )}
                 </td>
                 <td>
                     <button
