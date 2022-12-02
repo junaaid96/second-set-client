@@ -2,7 +2,7 @@ import React from "react";
 import { TiTickOutline } from "react-icons/ti";
 import BookNowModal from "./BookNowModal";
 
-const Product = ({ product }) => {
+const Product = ({ product}) => {
     const {
         name,
         picture,
@@ -38,7 +38,10 @@ const Product = ({ product }) => {
                         </p>
                         <p>Location: {location}</p>
                     </div>
-                    <BookNowModal key={product._id} product={product} />
+                    <BookNowModal
+                        key={product._id}
+                        product={product}
+                    />
                 </div>
             </div>
         </div>

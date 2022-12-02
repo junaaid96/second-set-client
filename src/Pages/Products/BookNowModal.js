@@ -6,6 +6,10 @@ const BookNowModal = ({ product }) => {
     const { _id, name: item_name, resale_price, isBooked } = product;
     const { user } = useContext(AuthContext);
 
+    function refreshPage() {
+        window.location.reload(false);
+    }
+
     const handleBook = (event) => {
         event.preventDefault();
         const form = event.target;
@@ -25,10 +29,22 @@ const BookNowModal = ({ product }) => {
             meeting_location: location,
         };
 
+        fetch(`https://second-set-server.vercel.app/product/${_id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({ isBooked: true }),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data);
+            });
+
         fetch("https://second-set-server.vercel.app/bookings", {
             method: "POST",
             headers: {
-                "content-Type": "application/json",
+                "content-type": "application/json",
             },
             body: JSON.stringify(bookingInfo),
         })
@@ -37,28 +53,28 @@ const BookNowModal = ({ product }) => {
                 console.log(data);
                 if (data.acknowledged) {
                     toast.success("Booking Successful");
+                    refreshPage();
                 } else {
                     toast.error(data.message);
                 }
             });
-
-        fetch(`https://second-set-server.vercel.app/product/${_id}`, {
-            method: "PATCH",
-            headers: {
-                "content-Type": "application/json",
-            },
-            body: JSON.stringify({ isBooked: true }),
-        });
     };
 
     return (
         <>
-            <label
-                htmlFor={`book-now-modal-${_id}`}
-                className={`btn btn-primary ${isBooked && "btn-disabled"}`}
-            >
-                Book Now
-            </label>
+            {isBooked ? (
+                <button disabled className="btn">
+                    Booked
+                </button>
+            ) : (
+                <label
+                    htmlFor={`book-now-modal-${_id}`}
+                    className={`btn btn-primary`}
+                >
+                    Book Now
+                </label>
+            )}
+
             <input
                 type="checkbox"
                 id={`book-now-modal-${_id}`}

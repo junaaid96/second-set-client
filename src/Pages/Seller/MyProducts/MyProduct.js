@@ -3,11 +3,11 @@ import React from "react";
 const MyProduct = ({ myProduct, index, refetch }) => {
     const {
         _id,
-        seller_name,
-        seller_email,
         name: productName,
         resale_price,
+        seller_name,
         isBooked: status,
+        seller_email,
     } = myProduct;
 
     const handleDelete = () => {
@@ -25,6 +25,16 @@ const MyProduct = ({ myProduct, index, refetch }) => {
             });
     };
 
+    const handleAdvertisement = () => {
+        fetch(`https://second-set-server.vercel.app/products/${_id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({}),
+        });
+    };
+
     return (
         <tbody>
             <tr>
@@ -35,13 +45,16 @@ const MyProduct = ({ myProduct, index, refetch }) => {
                 <td>{resale_price}</td>
                 <td>{status ? "Booked" : "Available"}</td>
                 <td>
-                    <button className="btn btn-sm btn-primary">
+                    <button
+                        onClick={handleAdvertisement}
+                        className="btn btn-sm btn-primary"
+                    >
                         Advertise
                     </button>
                 </td>
                 <td>
                     <button
-                        onClick={() => handleDelete()}
+                        onClick={handleDelete}
                         className="btn btn-error btn-sm"
                     >
                         X
