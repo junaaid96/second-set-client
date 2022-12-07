@@ -19,6 +19,14 @@ https://second-set-c3ef3.web.app/
 -   Safe authentication system using JWT.
 -   Buyer can report items.
 
+# Technology Used
+* JavaScript
+* React/React-Router
+* Tailwind
+* Firebase
+* NodeJS/ExpressJS
+* Vercel
+
 # admin credential
 adminEmail: junaid@secondset.com
 
