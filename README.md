@@ -12,7 +12,6 @@ https://second-set-c3ef3.web.app/
 
 # Functionalities
 
--   Minimalistic UI/UX.
 -   Made responsive for Mobile, Tablet and Desktop.
 -   Seller can add their product.
 -   Advertisement facility.
