@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../../contexts/AuthProvider";
 import Seller from "./Seller";
 
 const AllSellers = () => {
+    const { user } = useContext(AuthContext);
     const {
         data: users = [],
         refetch,
         isLoading,
     } = useQuery({
-        queryKey: ["users"],
+        queryKey: ["users", user?.email],
         queryFn: async () => {
             const res = await fetch(
                 `https://second-set-server.vercel.app/users`
