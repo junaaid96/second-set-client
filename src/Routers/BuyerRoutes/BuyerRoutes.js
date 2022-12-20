@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { AuthContext } from '../../contexts/AuthProvider';
-import useBuyer from '../../customHooks/useBuyer';
+import React, { useContext } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
+import useBuyer from "../../customHooks/useBuyer";
+import LoadingScreen from "../../Pages/Shared/LoadingScreen/LoadingScreen";
 
 const BuyerRoutes = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
@@ -9,7 +10,7 @@ const BuyerRoutes = ({ children }) => {
     const location = useLocation();
 
     if (loading || isBuyerLoading) {
-        return <progress className="progress w-56"></progress>
+        return <LoadingScreen />;
     }
 
     if (user && isBuyer) {

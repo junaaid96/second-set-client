@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import useSeller from "../../customHooks/useSeller";
+import LoadingScreen from "../../Pages/Shared/LoadingScreen/LoadingScreen";
 
 const SellerRoutes = ({ children }) => {
     const { user, loading } = useContext(AuthContext);
@@ -9,7 +10,7 @@ const SellerRoutes = ({ children }) => {
     const location = useLocation();
 
     if (loading || isSellerLoading) {
-        return <progress className="progress w-56"></progress>;
+        return <LoadingScreen />;
     }
 
     if (user && isSeller) {

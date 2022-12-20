@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import LoadingScreen from "../../Shared/LoadingScreen/LoadingScreen";
 import Seller from "./Seller";
 
 const AllSellers = () => {
@@ -20,8 +21,8 @@ const AllSellers = () => {
         },
     });
 
-    if (isLoading || users.length === 0) {
-        return <progress className="progress w-56"></progress>;
+    if (isLoading) {
+        return <LoadingScreen />;
     }
 
     return (
