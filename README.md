@@ -29,7 +29,7 @@ https://second-set-c3ef3.web.app/
 # admin credential
 adminEmail: junaid@secondset.com
 
-adminPassword: ******
+adminPassword: ****** (for testing admin route, contact me for the password.)
 
 # Getting Started with Create React App
 
