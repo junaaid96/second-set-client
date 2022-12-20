@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import Order from "./Order";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import LoadingScreen from "../../Shared/LoadingScreen/LoadingScreen";
 
 const MyOrders = () => {
     const { user } = useContext(AuthContext);
@@ -17,7 +18,7 @@ const MyOrders = () => {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <LoadingScreen />;
     }
 
     return (

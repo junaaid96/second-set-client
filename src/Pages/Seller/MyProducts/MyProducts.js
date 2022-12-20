@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
+import LoadingScreen from "../../Shared/LoadingScreen/LoadingScreen";
 import MyProduct from "./MyProduct";
 
 const MyProducts = () => {
     const { user } = useContext(AuthContext);
-    const { data: products = [], isLoading, refetch } = useQuery({
+    const {
+        data: products = [],
+        isLoading,
+        refetch,
+    } = useQuery({
         queryKey: ["products", user?.email],
         queryFn: async () => {
             const res = await fetch(
@@ -17,7 +22,7 @@ const MyProducts = () => {
     });
 
     if (isLoading) {
-        return <div>Loading...</div>;
+        return <LoadingScreen />;
     }
 
     return (
