@@ -15,7 +15,6 @@ import Register from "../../Pages/Register/Register";
 import AddProduct from "../../Pages/Seller/AddProduct/AddProduct";
 import MyBuyers from "../../Pages/Seller/MyBuyers/MyBuyers";
 import MyProducts from "../../Pages/Seller/MyProducts/MyProducts";
-import Reloading from "../../Pages/Shared/Reloading/Reloading";
 import AdminRoute from "../AdminRoutes/AdminRoutes";
 import BuyerRoutes from "../BuyerRoutes/BuyerRoutes";
 import PrivateRoutes from "../PrivateRoutes/PrivateRoutes";
@@ -25,6 +24,7 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />,
+        errorElement: <NotFound />,
         children: [
             {
                 path: "/",
@@ -67,7 +67,7 @@ const router = createBrowserRouter([
                 <DashboardLayout />
             </PrivateRoutes>
         ),
-        errorElement: <Reloading />,
+        errorElement: <NotFound />,
         children: [
             {
                 path: "/dashboard",
@@ -132,7 +132,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: "*",
+        path: "/*",
         element: <NotFound />,
     },
 ]);
